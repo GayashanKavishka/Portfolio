@@ -3,7 +3,7 @@
 // import project3 from './project3.svg'
 import project4 from './project5.png'
 import project6 from './project6.png'
-import project7 from './project7.png'
+import tutorly from './Tutorly.png'
 
 
 const mywork_data = [
@@ -22,9 +22,9 @@ const mywork_data = [
     },
     {
         w_no : "03",
-        w_name :"Spootyfy - Music streaming web application Clone ",
-        w_img :project7,
-        w_link :"https://github.com/GayashanKavishka/Spootify-clone.git"
+        w_name :"Tutorly - Online Tutoring Platform",
+        w_img :tutorly,
+        w_link :"https://github.com/EshanRavindu17/OnlineTutoringPlatform.git"
     }
 ];
 

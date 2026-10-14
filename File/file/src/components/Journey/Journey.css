@@ -1,0 +1,565 @@
+/* ─── Section shell ──────────────────────────────────── */
+.journey {
+  padding: 100px 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CSS animation class for conditionally-rendered elements inside tabs.
+   Unlike .reveal (needs IntersectionObserver), this fires automatically
+   every time the element is mounted into the DOM. */
+.journey__animate {
+  animation: fadeInUp 0.5s ease both;
+}
+
+
+.journey__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.journey__header { text-align: center; }
+.journey__header .section-subtitle { margin: 0 auto; }
+
+/* ─── Tab bar ────────────────────────────────────────── */
+.journey__tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 6px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.journey__tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  border-radius: calc(var(--radius-lg) - 4px);
+  border: none;
+  background: transparent;
+  color: var(--clr-muted);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-med);
+  white-space: nowrap;
+}
+
+.journey__tab:hover {
+  color: var(--clr-text);
+  background: rgba(255,255,255,0.06);
+}
+
+.journey__tab--active {
+  background: var(--grad-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+}
+
+/* ─── Tab panel container ────────────────────────────── */
+.journey__content { min-height: 400px; }
+
+.journey__tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* Panel intro */
+.journey__panel-intro { display: flex; flex-direction: column; gap: 8px; }
+
+.journey__panel-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.journey__panel-desc {
+  font-size: 15px;
+  color: var(--clr-muted);
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+/* ─── Timeline layout ────────────────────────────────── */
+.journey__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.journey__timeline-item {
+  display: flex;
+  gap: 28px;
+}
+
+/* Spine (dot + line) */
+.journey__spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.journey__spine-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  z-index: 1;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.journey__spine-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, rgba(124,58,237,0.4), rgba(6,182,212,0.1));
+  margin: 8px 0;
+  min-height: 40px;
+}
+
+/* ─── Timeline card ──────────────────────────────────── */
+.journey__card {
+  flex: 1;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  transition: var(--transition-med);
+}
+
+.journey__card:hover {
+  border-color: rgba(124,58,237,0.3);
+  background: var(--clr-surface-2);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-card);
+}
+
+.journey__card-header { margin-bottom: 16px; }
+
+.journey__type-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+
+.journey__card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.journey__card-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.journey__company {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--clr-muted);
+}
+
+.journey__company-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--clr-cyan-lt);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.journey__company-link:hover { color: var(--clr-violet-lt); }
+
+.journey__period {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--clr-dim);
+  font-weight: 500;
+}
+
+/* Description list */
+.journey__desc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.journey__desc-list li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--clr-muted);
+  padding-left: 18px;
+  position: relative;
+}
+
+.journey__desc-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--clr-violet-lt);
+  font-size: 12px;
+  top: 2px;
+}
+
+.journey__desc-list li strong {
+  color: var(--clr-text);
+  font-weight: 700;
+}
+
+/* Tags */
+.journey__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.journey__tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.03em;
+}
+
+/* ─── Skills grid ────────────────────────────────────── */
+.journey__skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.journey__skill-group {
+  padding: 24px;
+  transition: var(--transition-med);
+}
+
+.journey__skill-group:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124,58,237,0.3);
+  box-shadow: var(--shadow-card);
+}
+
+.journey__skill-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.journey__skill-icon { font-size: 22px; line-height: 1; }
+
+.journey__skill-label {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.journey__skill-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.journey__skill-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+  transition: var(--transition-fast);
+  cursor: default;
+}
+
+.journey__skill-badge:hover {
+  filter: brightness(1.3);
+  transform: scale(1.05);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .journey__skills-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 700px) {
+  .journey { padding: 80px 24px; }
+  .journey__tabs { flex-direction: column; width: 100%; }
+  .journey__tab { justify-content: center; }
+  .journey__skills-grid { grid-template-columns: 1fr; }
+  .journey__timeline-item { flex-direction: column; gap: 16px; }
+  .journey__spine { flex-direction: row; }
+  .journey__spine-line { width: 40px; height: 2px; min-height: unset; margin: 0 8px; }
+  .journey__card { margin-bottom: 16px; }
+}
+
+/* ─── Volunteering (inside Skills tab) ─────────────────── */
+.journey__vol-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.journey__vol-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+}
+
+.journey__vol-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.journey__vol-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-left: 3px solid var(--vol-color, #7c3aed);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: var(--transition-med);
+}
+
+.journey__vol-card:hover {
+  border-color: var(--vol-color, #7c3aed);
+  background: var(--clr-surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.journey__vol-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.journey__vol-icon {
+  font-size: 26px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.journey__vol-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.journey__vol-org {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--vol-color, #7c3aed);
+}
+
+.journey__vol-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.journey__vol-role {
+  font-size: 12px;
+  color: var(--clr-muted);
+  font-style: italic;
+}
+
+.journey__vol-desc {
+  font-size: 13px;
+  color: var(--clr-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Gallery thumbnails */
+.journey__vol-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.journey__vol-thumb-btn {
+  position: relative;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.journey__vol-thumb-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.journey__vol-thumb {
+  width: 100px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  border: 1px solid var(--clr-border);
+}
+
+.journey__vol-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  border-radius: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.journey__vol-thumb-btn:hover .journey__vol-thumb-overlay { opacity: 1; }
+
+/* ─── Lightbox ───────────────────────────────────────────── */
+.vol-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeInLb 0.2s ease;
+}
+
+@keyframes fadeInLb {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.vol-lightbox img {
+  max-width: min(90vw, 900px);
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  animation: zoomInLb 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomInLb {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.vol-lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 1;
+}
+
+.vol-lightbox__close:hover { background: rgba(255,255,255,0.2); }
+
+.vol-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 36px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 1;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.vol-lightbox__nav:hover { background: rgba(255,255,255,0.22); }
+.vol-lightbox__nav--prev { left: 20px; }
+.vol-lightbox__nav--next { right: 20px; }
+
+.vol-lightbox__dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.vol-lightbox__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.vol-lightbox__dot.active {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+@media (max-width: 600px) {
+  .journey__vol-thumb { width: 78px; height: 58px; }
+  .vol-lightbox__nav { display: none; }
+}
+
